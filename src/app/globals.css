@@ -1,0 +1,143 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Өнгөний систем — цөөн, тайван өнгө. Бүх өнгийг эдгээр хувьсагчаар ашиглана.
+   --------------------------------------------------------------------------- */
+:root {
+  --bg: #fbfaf8;
+  --surface: #ffffff;
+  --surface-2: #f3f2ee;
+  --ink: #14161f;
+  --ink-2: #474c59;
+  --ink-3: #666b7a;
+  --line: #e7e5df;
+  --line-strong: #d3d0c7;
+  --accent: #2b47c6;
+  --accent-strong: #1f359a;
+  --accent-soft: #edf0fc;
+  --accent-ink: #ffffff;
+  --success: #0e7a53;
+  --success-soft: #e6f4ed;
+  --warning: #8f5400;
+  --warning-soft: #fdf2df;
+  --danger: #b42318;
+  --danger-soft: #fdecea;
+  --grid-line: rgb(20 22 31 / 0.045);
+  --shadow-color: 222 20% 20%;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1016;
+    --surface: #151821;
+    --surface-2: #1b1f2a;
+    --ink: #eceef3;
+    --ink-2: #b6bbc7;
+    --ink-3: #8d93a2;
+    --line: #252a36;
+    --line-strong: #353b4b;
+    --accent: #8098ff;
+    --accent-strong: #a8b7ff;
+    --accent-soft: #1a2144;
+    --accent-ink: #0b0f1f;
+    --success: #4cc38a;
+    --success-soft: #10281e;
+    --warning: #f0b35a;
+    --warning-soft: #2b2010;
+    --danger: #ff8b80;
+    --danger-soft: #2e1513;
+    --grid-line: rgb(236 238 243 / 0.05);
+    --shadow-color: 0 0% 0%;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-serif), ui-serif, Georgia, serif;
+
+  --shadow-soft: 0 1px 2px hsl(var(--shadow-color) / 0.05), 0 4px 16px -6px hsl(var(--shadow-color) / 0.08);
+  --shadow-lift: 0 2px 4px hsl(var(--shadow-color) / 0.05), 0 12px 32px -12px hsl(var(--shadow-color) / 0.18);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* График цаас шиг нарийн тор — физикийн мэдрэмж өгөх дэвсгэр */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .prose-mn {
+    color: var(--ink-2);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-mn > * + * {
+    margin-top: 1em;
+  }
+}
