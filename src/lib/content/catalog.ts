@@ -16,7 +16,9 @@ const loadPublishedSnapshot = unstable_cache(
     if (!repository) return { topics: [], chapters: [], lessons: [] };
     return repository.loadAll({ includeUnpublished: false });
   },
-  ["published-content-v1"],
+  // Vercel-ийн өгөгдлийн кэш deploy хооронд хадгалагддаг тул deploy бүр шинэ кэшээр эхэлнэ
+  // (жишээ нь мэдээллийн санг админаас гадуур өөрчилсний дараа redeploy хийхэд шинэчлэгдэнэ).
+  ["published-content-v1", process.env.VERCEL_DEPLOYMENT_ID ?? "local"],
   { tags: [CATALOG_TAG], revalidate: 3600 },
 );
 
