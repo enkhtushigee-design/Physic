@@ -25,8 +25,14 @@ export async function requireAdmin(): Promise<void> {
   if (!(await isAdminSession())) redirect("/admin/login");
 }
 
-export async function checkPassword(candidate: string): Promise<boolean> {
-  const expected = process.env.ADMIN_PASSWORD;
+/** Хуулж буулгахад орсон зай, мөр шилжилт, хашилтыг арилгана. */
+function normalizeSecret(value: string | undefined): string {
+  return (value ?? "").trim().replace(/^(["'])(.*)\1$/, "$2");
+}
+
+export async function checkPassword(rawCandidate: string): Promise<boolean> {
+  const expected = normalizeSecret(process.env.ADMIN_PASSWORD);
+  const candidate = normalizeSecret(rawCandidate);
   if (!expected || !candidate) return false;
   // Хэшлээд харьцуулснаар нууц үгийн урт ч ил гарахгүй.
   const digest = async (value: string) =>
